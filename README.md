@@ -51,3 +51,7 @@
 <command> exit - выход из программы
 <command> help - справочная информация
 ``` 
+
+## Демонстрация работы
+Пример установки пакета, запуска БД, создания, проверки и удаления таблицы.
+Ссылка: https://drive.google.com/file/d/1U09MiCrlRn7bSnJVvaRU6z65rY8Ovd1b/view?usp=drive_link
