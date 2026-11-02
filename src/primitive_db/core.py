@@ -29,3 +29,75 @@ def drop_table(metadata, table_name):
     del metadata[table_name]
     print(f'Таблица "{table_name}" успешно удалена')
     return metadata
+
+def insert(metadata, table_name, values):
+    if table_name not in metadata:
+        print(f'Ошибка: Таблица "{table_name}" не существует')
+        return None
+
+    columns = metadata[table_name]['columns'][1:]    
+    if len(values) != len(columns):
+        print(f'Ошибка: Кол-во переданных значений не соответствует кол-ву столбцов')
+        return None
+
+    columns_types = []
+    for column in columns:
+        column_type = column.split(':', 1)[1]
+        columns_types.append(column_type)
+
+    list_values = []
+    for val, col_type in zip(values, columns_types):
+        try:
+            if col_type == 'bool':
+                if str(val).lower() in ('true', 'false'):
+                    value = str(val).lower() == 'true'
+                else:
+                    raise ValueError
+            elif col_type == 'int':
+                value = int(val)
+            else:
+                value = val
+
+            list_values.append(value)
+            
+        except ValueError:
+            print(f'Ошибка: некорректное значение {val} для типа {col_type}.')
+            return None
+
+    return list_values
+
+def select(table_data, where_clause=None):
+    if where_clause == None:
+        return table_data
+
+    key, value = where_clause.items()
+
+    result = []
+    for row in table_data:
+        row_value = row.get(key)
+        if str(row_value).lower() == str(value).lower():
+            result.append(row)
+
+    return result
+
+def update(table_data, set_clause, where_clause):
+    key_set, value_set = set_clause.items()
+    key_where, value_where = where_clause.items()
+
+    for row in table_data:
+        row_value = row.get(key_where)
+        if str(row_value).lower() == str(value_where).lower():
+            row[key_set] = value_set
+
+    return table_data
+
+def delete(table_data, where_clause):
+    key, value = where_clause.items()
+
+    result = []
+    for row in table_data:
+        row_value = row.get(key)
+        if str(row_value).lower() != str(value).lower():
+            result.append(row)
+
+    return result
