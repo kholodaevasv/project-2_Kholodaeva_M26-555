@@ -1,5 +1,7 @@
 from functools import wraps
 
+import prompt
+
 
 def handle_db_errors(func):
     @wraps(func)
@@ -17,7 +19,17 @@ def handle_db_errors(func):
             print(f"Произошла непредвиденная ошибка: {e}")
     return wrapper
 
-@handle_db_errors
-def some_db_operation():
-    # ... код, который может вызвать ошибку
-    pass
+def confirm_action(action_name):
+    def decorator(func):
+        @wraps(func)
+        def wrapper(*args, **kwargs):
+            answer = prompt.string(
+                f'Вы уверены, что хотите выполнить "{action_name}"? [y/n]: '
+            )
+            if answer != 'y':
+                print('Операция отменена')
+                return None
+            return func(*args, **kwargs)
+        return wrapper
+    return decorator
+

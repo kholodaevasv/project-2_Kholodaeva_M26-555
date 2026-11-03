@@ -1,4 +1,4 @@
-from decorators import handle_db_errors
+from decorators import confirm_action, handle_db_errors
 
 
 @handle_db_errors
@@ -26,6 +26,7 @@ def create_table(metadata, table_name, columns):
     return metadata
 
 @handle_db_errors
+@confirm_action("удаление таблицы")
 def drop_table(metadata, table_name):
     if table_name not in metadata:
         print(f'Ошибка: Таблица "{table_name}" не существует')
@@ -98,6 +99,7 @@ def update(table_data, set_clause, where_clause):
     return table_data, updated_id
 
 @handle_db_errors
+@confirm_action("удаление записи")
 def delete(table_data, where_clause):
     key, value = list(where_clause.items())[0]
 

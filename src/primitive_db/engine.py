@@ -86,8 +86,10 @@ def run():
                 print(f"Некорректное значение: {args}. Попробуйте снова.")
                 continue
             table_name = args[0]
-            metadata = drop_table(metadata, table_name)
-            save_metadata(db_file, metadata)
+            result = drop_table(metadata, table_name)
+            if result is not None:
+                metadata = result
+                save_metadata(db_file, metadata)
 
         elif command == "insert":
             table_name = args[1]
