@@ -37,7 +37,7 @@ def insert(metadata, table_name, values):
 
     columns = metadata[table_name]['columns'][1:]    
     if len(values) != len(columns):
-        print(f'Ошибка: Кол-во переданных значений не соответствует кол-ву столбцов')
+        print('Ошибка: Кол-во переданных значений не соответствует кол-ву столбцов')
         return None
 
     columns_types = []
@@ -67,7 +67,7 @@ def insert(metadata, table_name, values):
     return list_values
 
 def select(table_data, where_clause=None):
-    if where_clause == None:
+    if where_clause is None:
         return table_data
 
     key, value = where_clause.items()

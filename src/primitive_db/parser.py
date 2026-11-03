@@ -10,7 +10,7 @@ def parser_where(condition):
         value = True
     elif value.lower() == "false":
         value = False
-    elif value.startswith('"') and value.endswith('"') or value.startswith("'") and value.endswith("'"):
+    elif value.startswith('"') and value.endswith('"'):
         value = value.strip('"')
     elif value.startswith("'") and value.endswith("'"):
         value = value.strip("'")
