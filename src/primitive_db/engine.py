@@ -123,7 +123,8 @@ def run():
             data = load_table_data(table_name)
             where_clause = None
             if 'where' in args:
-                condition = " ".join(args[3:])
+                where_index = args.index('where')
+                condition = " ".join(args[where_index + 1:])
                 where_clause = parser_where(condition)
             select_values = select(data, where_clause)
             if not select_values:
