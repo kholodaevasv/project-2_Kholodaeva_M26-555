@@ -1,4 +1,4 @@
-from decorators import confirm_action, handle_db_errors
+from decorators import confirm_action, handle_db_errors, log_time
 
 
 @handle_db_errors
@@ -37,6 +37,7 @@ def drop_table(metadata, table_name):
     return metadata
 
 @handle_db_errors
+@log_time
 def insert(metadata, table_name, values):
     if table_name not in metadata:
         print(f'Ошибка: Таблица "{table_name}" не существует')
@@ -69,6 +70,7 @@ def insert(metadata, table_name, values):
     return list_values
 
 @handle_db_errors
+@log_time
 def select(table_data, where_clause=None):
     if where_clause is None:
         return table_data
