@@ -54,7 +54,7 @@
 
 ## Демонстрация работы
 Пример установки пакета, запуска БД, создания, проверки и удаления таблицы.
-Ссылка: https://drive.google.com/file/d/1U09MiCrlRn7bSnJVvaRU6z65rY8Ovd1b/view?usp=drive_link
+Ссылка: https://drive.google.com/file/d/1U09MiCrlRn7bSnJVvaRU6z65rY8Ovd1b/view?usp=sharing
 
 ## CRUD-команды
 После создания таблицы с ней можно работать, добавляя, обновляя, удаляя и просматривая данные.
@@ -108,4 +108,4 @@
 
 ## Демонстрация работы
 Пример установки пакета, запуска БД и демонстрации всех операций.
-Ссылка: 
+Ссылка: https://drive.google.com/file/d/1jgvJ33E0WB0RHmzpAItYkgaAy4T4v0_4/view?usp=sharing
