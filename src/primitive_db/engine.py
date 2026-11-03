@@ -3,7 +3,7 @@ import shlex
 import prompt
 from prettytable import PrettyTable
 
-from primitive_db.core import create_table, delete, drop_table, insert, select, update
+from primitive_db.core import clear_cache, create_table, delete, drop_table, insert, select, update
 from primitive_db.parser import parser_set, parser_where
 from primitive_db.utils import (
     load_metadata,
@@ -110,6 +110,7 @@ def run():
                     row[col_name] = val
                 data.append(row)
                 save_table_data(table_name, data)
+                clear_cache()
                 print(
                     f'Запись с ID={new_id} успешно добавлена ' 
                     f'в таблицу "{table_name}"'
@@ -152,6 +153,7 @@ def run():
             data, updated_id = update(data, set_clause, where_clause)
             if updated_id is not None:
                 save_table_data(table_name, data)
+                clear_cache()
                 print(
                     f'Запись с ID={updated_id} в таблице "{table_name}" '
                     'успешно обновлена.'
@@ -172,6 +174,7 @@ def run():
             data, deleted_id = delete(data, where_clause)
             if deleted_id is not None:
                 save_table_data(table_name, data)
+                clear_cache()
                 print(
                     f'Запись с ID={deleted_id} успешно удалена '
                     f'из таблицы "{table_name}".'

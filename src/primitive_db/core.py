@@ -11,7 +11,11 @@ def create_cacher():
         return result
     return cache_result
 
-select_cache = create_cacher()   
+select_cache = create_cacher() 
+
+def clear_cache():
+    global select_cache
+    select_cache = create_cacher()
 
 @handle_db_errors
 def create_table(metadata, table_name, columns):
