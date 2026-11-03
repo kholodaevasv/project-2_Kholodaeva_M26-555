@@ -1,4 +1,4 @@
-from decorators import confirm_action, handle_db_errors, log_time
+from primitive_db.decorators import confirm_action, handle_db_errors, log_time
 
 
 def create_cacher():
