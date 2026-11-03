@@ -77,7 +77,7 @@ def insert(metadata, table_name, values):
         else:
             value = val
 
-            list_values.append(value)
+        list_values.append(value)
 
     return list_values
 

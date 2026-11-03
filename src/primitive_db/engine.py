@@ -111,7 +111,7 @@ def run():
                 data.append(row)
                 save_table_data(table_name, data)
                 print(
-                    f'Запись с ID={new_id} успешно добавлена' 
+                    f'Запись с ID={new_id} успешно добавлена ' 
                     f'в таблицу "{table_name}"'
                     )
 
