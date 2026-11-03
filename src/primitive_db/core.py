@@ -70,7 +70,7 @@ def select(table_data, where_clause=None):
     if where_clause is None:
         return table_data
 
-    key, value = where_clause.items()
+    key, value = where_clause.popitem()
 
     result = []
     for row in table_data:
@@ -81,8 +81,8 @@ def select(table_data, where_clause=None):
     return result
 
 def update(table_data, set_clause, where_clause):
-    key_set, value_set = set_clause.items()
-    key_where, value_where = where_clause.items()
+    key_set, value_set = list(set_clause.items())[0]
+    key_where, value_where = list(where_clause.items())[0]
 
     updated_id = None
 
@@ -95,7 +95,7 @@ def update(table_data, set_clause, where_clause):
     return table_data, updated_id
 
 def delete(table_data, where_clause):
-    key, value = where_clause.items()
+    key, value = list(where_clause.items())[0]
 
     deleted_id = None
 

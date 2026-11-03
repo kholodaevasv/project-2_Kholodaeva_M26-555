@@ -109,20 +109,21 @@ def run():
                 data.append(row)
                 save_table_data(table_name, data)
                 print(
-                    f'Запись с ID={new_id} успешно добавлена в таблицу "{table_name}"'
+                    f'Запись с ID={new_id} успешно добавлена' 
+                    f'в таблицу "{table_name}"'
                     )
 
         elif command == "select":
             table_name = args[1]
             if table_name not in metadata:
-                print(f"Ошибка: Таблица {table_name} не существует.")
+                print(f'Ошибка: Таблица "{table_name}" не существует.')
                 continue
             data = load_table_data(table_name)
             where_clause = None
             if 'where' in args:
                 condition = " ".join(args[3:])
                 where_clause = parser_where(condition)
-        
+                print(f"DEBUG: condition='{condition}', where_clause={where_clause}")
             select_values = select(data, where_clause)
             if not select_values:
                 print('Записей не найдено')
@@ -137,7 +138,7 @@ def run():
         elif command == "update":
             table_name = args[0]
             if table_name not in metadata:
-                print(f"Ошибка: Таблица {table_name} не существует.")
+                print(f'Ошибка: Таблица "{table_name}" не существует.')
                 continue
             data = load_table_data(table_name)
             if 'set' in args:
@@ -159,7 +160,7 @@ def run():
         elif command == "delete":
             table_name = args[1]
             if table_name not in metadata:
-                print(f"Ошибка: Таблица {table_name} не существует.")
+                print(f'Ошибка: Таблица "{table_name}" не существует.')
                 continue
             data = load_table_data(table_name)
             where_clause = None
@@ -179,7 +180,7 @@ def run():
         elif command == "info":
             table_name = args[0]
             if table_name not in metadata:
-                print(f"Ошибка: Таблица {table_name} не существует.")
+                print(f'Ошибка: Таблица "{table_name}" не существует.')
                 continue
             data = load_table_data(table_name)
             columns = ", ".join(metadata[table_name]['columns'])
