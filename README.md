@@ -117,4 +117,4 @@
 
 ### Демонстрация работы
 Пример установки пакета, запуска БД и демонстрации всех операций.
-Ссылка:
+Ссылка: https://drive.google.com/file/d/138yPedpRlueaUt1CUXRC8-8h0EfljLZ_/view?usp=sharing
