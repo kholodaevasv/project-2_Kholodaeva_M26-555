@@ -123,7 +123,6 @@ def run():
             if 'where' in args:
                 condition = " ".join(args[3:])
                 where_clause = parser_where(condition)
-                print(f"DEBUG: condition='{condition}', where_clause={where_clause}")
             select_values = select(data, where_clause)
             if not select_values:
                 print('Записей не найдено')
