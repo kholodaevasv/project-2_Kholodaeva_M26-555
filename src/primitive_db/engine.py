@@ -3,7 +3,15 @@ import shlex
 import prompt
 from prettytable import PrettyTable
 
-from primitive_db.core import clear_cache, create_table, delete, drop_table, insert, select, update
+from primitive_db.core import (
+    clear_cache,
+    create_table,
+    delete,
+    drop_table,
+    insert,
+    select,
+    update,
+)
 from primitive_db.parser import parser_set, parser_where
 from primitive_db.utils import (
     load_metadata,
@@ -87,9 +95,11 @@ def run():
                 continue
             table_name = args[0]
             result = drop_table(metadata, table_name)
-            if result is not None:
-                metadata = result
-                save_metadata(db_file, metadata)
+            if result is None:
+                continue
+            metadata = result
+            save_metadata(db_file, metadata)
+            clear_cache()
 
         elif command == "insert":
             table_name = args[1]
@@ -170,8 +180,11 @@ def run():
             where_clause = None
             if 'where' in args:
                 condition_where = " ".join(args[3:])
-                where_clause = parser_where(condition_where)       
-            data, deleted_id = delete(data, where_clause)
+                where_clause = parser_where(condition_where) 
+            result = delete(data, where_clause)      
+            if result is None:
+                continue
+            data, deleted_id = result
             if deleted_id is not None:
                 save_table_data(table_name, data)
                 clear_cache()
