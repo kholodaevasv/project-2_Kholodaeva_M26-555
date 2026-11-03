@@ -84,12 +84,15 @@ def update(table_data, set_clause, where_clause):
     key_set, value_set = set_clause.items()
     key_where, value_where = where_clause.items()
 
+    updated_id = None
+
     for row in table_data:
         row_value = row.get(key_where)
         if str(row_value).lower() == str(value_where).lower():
             row[key_set] = value_set
+            updated_id = row.get("ID")
 
-    return table_data
+    return table_data, updated_id
 
 def delete(table_data, where_clause):
     key, value = where_clause.items()
