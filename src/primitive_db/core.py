@@ -1,6 +1,18 @@
 from decorators import confirm_action, handle_db_errors, log_time
 
 
+def create_cacher():
+    cache = {}
+    def cache_result(key, value_func):
+        if key in cache:
+            return cache[key]
+        result = value_func()
+        cache[key] = result
+        return result
+    return cache_result
+
+select_cache = create_cacher()   
+
 @handle_db_errors
 def create_table(metadata, table_name, columns):
     if table_name in metadata:
@@ -72,18 +84,26 @@ def insert(metadata, table_name, values):
 @handle_db_errors
 @log_time
 def select(table_data, where_clause=None):
-    if where_clause is None:
-        return table_data
 
-    key, value = where_clause.popitem()
+    cache_key = str(where_clause)
 
-    result = []
-    for row in table_data:
-        row_value = row.get(key)
-        if str(row_value).lower() == str(value).lower():
-            result.append(row)
+    def cache_select():
 
-    return result
+        if where_clause is None:
+            return table_data
+
+        key = list(where_clause.keys())[0]
+        value = list(where_clause.values())[0]
+
+        result = []
+        for row in table_data:
+            row_value = row.get(key)
+            if str(row_value).lower() == str(value).lower():
+                result.append(row)
+
+        return result
+
+    return select_cache(cache_key, cache_select)
 
 @handle_db_errors
 def update(table_data, set_clause, where_clause):
