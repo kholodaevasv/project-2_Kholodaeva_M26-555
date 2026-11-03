@@ -97,10 +97,14 @@ def update(table_data, set_clause, where_clause):
 def delete(table_data, where_clause):
     key, value = where_clause.items()
 
+    deleted_id = None
+
     result = []
     for row in table_data:
         row_value = row.get(key)
         if str(row_value).lower() != str(value).lower():
             result.append(row)
+        else:
+            deleted_id = row.get("ID")
 
-    return result
+    return result, deleted_id
