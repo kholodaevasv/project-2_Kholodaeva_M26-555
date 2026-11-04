@@ -20,7 +20,7 @@ from primitive_db.utils import (
     save_table_data,
 )
 
-db_file = "db_meta.json"
+from primitive_db.constants import META_FILE
 
 
 def print_help():
@@ -47,7 +47,7 @@ def print_help():
 
 
 def run():
-    metadata = load_metadata(db_file)
+    metadata = load_metadata(META_FILE)
 
     print_help()
 
@@ -87,7 +87,7 @@ def run():
             table_name = args[0]
             columns = args[1:]
             metadata = create_table(metadata, table_name, columns)
-            save_metadata(db_file, metadata)
+            save_metadata(META_FILE, metadata)
         
         elif command == "drop_table":
             if len(args) != 1:
@@ -98,7 +98,7 @@ def run():
             if result is None:
                 continue
             metadata = result
-            save_metadata(db_file, metadata)
+            save_metadata(META_FILE, metadata)
             clear_cache()
 
         elif command == "insert":

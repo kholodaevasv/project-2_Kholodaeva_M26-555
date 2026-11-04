@@ -1,5 +1,5 @@
 from primitive_db.decorators import confirm_action, handle_db_errors, log_time
-
+from primitive_db.constants import VALID_TYPES
 
 def create_cacher():
     cache = {}
@@ -29,7 +29,7 @@ def create_table(metadata, table_name, columns):
             return metadata
 
         column_type = column.split(':', 1)[1]
-        if column_type not in ["int", "str", "bool"]:
+        if column_type not in VALID_TYPES:
             print(f'Некорректное значение: "{column}". Попробуйте снова.')
             return metadata
 
