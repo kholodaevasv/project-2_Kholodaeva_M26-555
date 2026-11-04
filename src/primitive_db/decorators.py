@@ -5,6 +5,7 @@ import prompt
 
 
 def handle_db_errors(func):
+    """Ловит ошибки базы данных и выводт понятные сообщения"""
     @wraps(func)
     def wrapper(*args, **kwargs):
         try:
@@ -21,6 +22,7 @@ def handle_db_errors(func):
     return wrapper
 
 def confirm_action(action_name):
+    """Запрашивает подтверждение перед опасной операцией"""
     def decorator(func):
         @wraps(func)
         def wrapper(*args, **kwargs):
@@ -35,12 +37,13 @@ def confirm_action(action_name):
     return decorator
 
 def log_time(func):
+    """Таймер выполнения функций"""
     @wraps(func)
     def wrapper(*args, **kwargs):
         start_time = time.monotonic()
         result = func(*args, **kwargs)
         end_time = time.monotonic()
-        print(f'Функции "{func.__name__}" выполнилась '
+        print(f'Функция "{func.__name__}" выполнилась '
               f'за {end_time - start_time:.3f} секунд')
         return result
     return wrapper
