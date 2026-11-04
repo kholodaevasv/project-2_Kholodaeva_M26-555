@@ -1,5 +1,5 @@
 import json
-
+import os
 from primitive_db.constants import DATA_DIR
 
 
@@ -16,6 +16,7 @@ def save_metadata(filepath, data):
         json.dump(data, fp, indent=4, ensure_ascii=False)
 
 def load_table_data(table_name):
+    os.makedirs(DATA_DIR, exist_ok=True)
     filepath = f'{DATA_DIR}/{table_name}.json'
     try:
         with open (filepath, 'r') as fp:
@@ -24,6 +25,7 @@ def load_table_data(table_name):
         return []
 
 def save_table_data(table_name, data):
+    os.makedirs(DATA_DIR, exist_ok=True)
     filepath = f'{DATA_DIR}/{table_name}.json'
     with open (filepath, 'w') as fp:
         json.dump(data, fp, indent=4, ensure_ascii=False)
