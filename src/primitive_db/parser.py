@@ -1,4 +1,5 @@
 def parser_where(condition):
+    """Преобразует строку условия в словарь"""
     if "=" not in condition:
         return None
     
@@ -20,4 +21,5 @@ def parser_where(condition):
     return {key: value}
 
 def parser_set(condition):
+    """Преобразует строку обновления в словарь"""
     return parser_where(condition)
