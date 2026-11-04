@@ -3,6 +3,7 @@ import shlex
 import prompt
 from prettytable import PrettyTable
 
+from primitive_db.constants import META_FILE
 from primitive_db.core import (
     clear_cache,
     create_table,
@@ -19,8 +20,6 @@ from primitive_db.utils import (
     save_metadata,
     save_table_data,
 )
-
-from primitive_db.constants import META_FILE
 
 
 def print_help():
