@@ -1,25 +1,7 @@
+from primitive_db import decorators
 from primitive_db.constants import VALID_TYPES
 from primitive_db.decorators import confirm_action, handle_db_errors, log_time
 
-
-def create_cacher():
-    """Создает функцию кэширования"""
-    cache = {}
-    def cache_result(key, value_func):
-        """Возвращает результат из кэша или вычисляет его и сохраняет"""
-        if key in cache:
-            return cache[key]
-        result = value_func()
-        cache[key] = result
-        return result
-    return cache_result
-
-select_cache = create_cacher() 
-
-def clear_cache():
-    """Очищает кэш"""
-    global select_cache
-    select_cache = create_cacher()
 
 @handle_db_errors
 def create_table(metadata, table_name, columns):
@@ -114,7 +96,7 @@ def select(table_data, where_clause=None):
 
         return result
 
-    return select_cache(cache_key, cache_select)
+    return decorators.select_cache(cache_key, cache_select)
 
 @handle_db_errors
 def update(table_data, set_clause, where_clause):

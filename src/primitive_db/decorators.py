@@ -47,3 +47,22 @@ def log_time(func):
               f'за {end_time - start_time:.3f} секунд')
         return result
     return wrapper
+
+def create_cacher():
+    """Создает функцию кэширования"""
+    cache = {}
+    def cache_result(key, value_func):
+        """Возвращает результат из кэша или вычисляет его и сохраняет"""
+        if key in cache:
+            return cache[key]
+        result = value_func()
+        cache[key] = result
+        return result
+    return cache_result
+
+select_cache = create_cacher() 
+
+def clear_cache():
+    """Очищает кэш"""
+    global select_cache
+    select_cache = create_cacher()

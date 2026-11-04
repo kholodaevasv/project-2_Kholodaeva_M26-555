@@ -5,7 +5,6 @@ from prettytable import PrettyTable
 
 from primitive_db.constants import META_FILE
 from primitive_db.core import (
-    clear_cache,
     create_table,
     delete,
     drop_table,
@@ -13,6 +12,7 @@ from primitive_db.core import (
     select,
     update,
 )
+from primitive_db.decorators import clear_cache
 from primitive_db.parser import parser_set, parser_where
 from primitive_db.utils import (
     load_metadata,
