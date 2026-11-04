@@ -3,8 +3,10 @@ from primitive_db.decorators import confirm_action, handle_db_errors, log_time
 
 
 def create_cacher():
+    """Создает функцию кэширования"""
     cache = {}
     def cache_result(key, value_func):
+        """Возвращает результат из кэша или вычисляет его и сохраняет"""
         if key in cache:
             return cache[key]
         result = value_func()
@@ -15,11 +17,13 @@ def create_cacher():
 select_cache = create_cacher() 
 
 def clear_cache():
+    """Очищает кэш"""
     global select_cache
     select_cache = create_cacher()
 
 @handle_db_errors
 def create_table(metadata, table_name, columns):
+    """Создает новую таблицу"""
     if table_name in metadata:
         print(f'Ошибка: Таблица "{table_name}" уже существует')
         return metadata
@@ -45,6 +49,7 @@ def create_table(metadata, table_name, columns):
 @handle_db_errors
 @confirm_action("удаление таблицы")
 def drop_table(metadata, table_name):
+    """Удаляет таблицу"""
     if table_name not in metadata:
         print(f'Ошибка: Таблица "{table_name}" не существует')
         return metadata
@@ -56,6 +61,7 @@ def drop_table(metadata, table_name):
 @handle_db_errors
 @log_time
 def insert(metadata, table_name, values):
+    """Создает новую запись в таблице"""
     if table_name not in metadata:
         print(f'Ошибка: Таблица "{table_name}" не существует')
         return None
@@ -89,7 +95,7 @@ def insert(metadata, table_name, values):
 @handle_db_errors
 @log_time
 def select(table_data, where_clause=None):
-
+    """Вывод запись по запросу"""
     cache_key = str(where_clause)
 
     def cache_select():
@@ -112,6 +118,7 @@ def select(table_data, where_clause=None):
 
 @handle_db_errors
 def update(table_data, set_clause, where_clause):
+    """Обновляет запись по запросу"""
     key_set, value_set = list(set_clause.items())[0]
     key_where, value_where = list(where_clause.items())[0]
 
@@ -128,6 +135,7 @@ def update(table_data, set_clause, where_clause):
 @handle_db_errors
 @confirm_action("удаление записи")
 def delete(table_data, where_clause):
+    """Удаляет запись"""
     key, value = list(where_clause.items())[0]
 
     deleted_id = None
