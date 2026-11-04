@@ -23,7 +23,7 @@ from primitive_db.utils import (
 
 
 def print_help():
-    """Prints the help message for the current mode."""
+    """Выводит справочную информацию"""
 
     print("\n***Процесс работы с таблицей***")
     print("Функции:")
@@ -46,6 +46,7 @@ def print_help():
 
 
 def run():
+    """Запускает основной цикл программы"""
     metadata = load_metadata(META_FILE)
 
     print_help()
